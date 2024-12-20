@@ -1,0 +1,13 @@
+---
+const currentUrl = new URL(Astro.request.url).pathname;
+
+console.log(currentUrl);
+---
+
+<nav class="bg-[#F2F2F7] text-blue-400 p-4">
+  <ul class="flex flex-row justify-evenly">
+    <li class={`hover:text-blue-400 ${currentUrl === '/' ? 'font-bold' : ''}`}><a href="/">Home</a></li>
+    <li class={`hover:text-blue-400 ${currentUrl === '/privacy-policy' ? 'font-bold' : ''}`}><a href="/privacy-policy">Privacy Policy</a></li>
+    <li class={`hover:text-blue-400 ${currentUrl === '/terms-of-service' ? 'font-bold' : ''}`}><a href="/terms-of-service">Terms of Service</a></li>
+  </ul>
+</nav>
