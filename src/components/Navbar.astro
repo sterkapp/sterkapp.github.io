@@ -5,9 +5,9 @@ console.log(currentUrl);
 ---
 
 <nav class="bg-[#F2F2F7] text-blue-400 p-4">
-  <ul class="flex flex-row justify-evenly">
-    <li class={`hover:text-blue w-[70px] ${currentUrl === '/' ? 'font-bold text-blue' : ''}`}><a href="/">Home</a></li>
-    <li class={`hover:text-blue w-[120px] ${currentUrl === '/privacy-policy' ? 'font-bold text-blue' : ''}`}><a href="/privacy-policy">Privacy Policy</a></li>
-    <li class={`hover:text-blue w-[130px] ${currentUrl === '/terms-of-service' ? 'font-bold text-blue' : ''}`}><a href="/terms-of-service">Terms of Service</a></li>
+  <ul class="flex flex-row justify-center space-x-16">
+    <li class={`hover:text-blue w-[70px] text-center ${currentUrl === '/' ? 'font-bold text-blue' : ''}`}><a href="/">Home</a></li>
+    <li class={`hover:text-blue w-[120px] text-center ${currentUrl === '/privacy-policy' || currentUrl === "/privacy-policy/"  ? 'font-bold text-blue' : ''}`}><a href="/privacy-policy">Privacy Policy</a></li>
+    <li class={`hover:text-blue w-[130px] text-center ${currentUrl === '/terms-of-service' || currentUrl === '/terms-of-service/' ? 'font-bold text-blue' : ''}`}><a href="/terms-of-service">Terms of Service</a></li>
   </ul>
 </nav>
