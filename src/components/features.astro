@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import img1 from "../assets/phone-faces/1.png";
+import img2 from "../assets/phone-faces/2.png";
+import img3 from "../assets/phone-faces/3.png";
+
+const features = [
+  {image: img1, title: "Customize your exercises effortlessly" , description: " Edit details like labels, weight settings and more to make logging a set easier." },
+  {image: img2, title: "Add sets faster with set prediction", description: "Your next set is estimated based on past data, making tracking easier than ever." },
+  {image: img3, title: "Keep track of every workout session. ", description: "View your complete history of sets and reps, all in one place." },
+]
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-screen-lg">
+  {features.map((feature) => (
+    <div class="bg-off-white rounded-2xl p-[32px]  flex flex-col items-center space-y-8 justify-between">
+      <div class="space-y-2">
+        <h2 class="text-2xl/6 font-bold">{feature.title}</h2>
+        <p class="text-gray-700 text-base/6">{feature.description}</p>
+      </div>
+      <Image src={feature.image} alt={`feature ${feature.title}`} class="w-full"/>
+    </div>
+  ))}
+</div>
