@@ -1,13 +1,28 @@
 ---
 const currentUrl = new URL(Astro.request.url).pathname;
 
-console.log(currentUrl);
+const urls = [
+  { path: '/', title: 'Home' },
+  { path: '/privacy-policy', title: 'Privacy Policy' },
+  { path: '/terms-of-service', title: 'Terms of Service' }
+];
 ---
 
-<nav class="bg-[#F2F2F7] text-blue-400 p-4">
-  <ul class="flex flex-row justify-center space-x-16">
-    <li class={`hover:text-blue w-[70px] text-center ${currentUrl === '/' ? 'font-bold text-blue' : ''}`}><a href="/">Home</a></li>
-    <li class={`hover:text-blue w-[120px] text-center ${currentUrl === '/privacy-policy' || currentUrl === "/privacy-policy/"  ? 'font-bold text-blue' : ''}`}><a href="/privacy-policy">Privacy Policy</a></li>
-    <li class={`hover:text-blue w-[130px] text-center ${currentUrl === '/terms-of-service' || currentUrl === '/terms-of-service/' ? 'font-bold text-blue' : ''}`}><a href="/terms-of-service">Terms of Service</a></li>
+<nav class="bg-[#F2F2F7] bg-opacity-50 backdrop-blur-md p-4 w-full top-0 fixed z-50 flex flex-row justify-center">
+  <ul class="flex w-full md:flex-row md:w-1/3 justify-between">
+    {urls.map(({ path, title }) => (
+      <li class="text-left md:flex-1 md:text-center mb-2 md:mb-0">
+        <a 
+          href={path} 
+          class={`block md:inline-block md:w-full hover:text-blue ${
+            currentUrl === path || currentUrl === `${path}/` 
+              ? 'font-bold text-blue' 
+              : ''
+          }`}
+        >
+          {title}
+        </a>
+      </li>
+    ))}
   </ul>
 </nav>
