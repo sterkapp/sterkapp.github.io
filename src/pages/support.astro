@@ -1,0 +1,20 @@
+---
+import Navbar from "../components/Navbar.astro";
+import SupportEmail from "../components/support-email.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <Navbar />
+  <main class="p-4 flex flex-col items-center h-full">
+    <div class="text-center">
+      <h1 class="text-blue font-bold text-9xl motion-opacity-in-0 -motion-translate-y-in-50">Support</h1>
+      <p class="text-gray-700 text-2xl motion-opacity-in-0 -motion-translate-y-in-50 motion-delay-300">Need help? We're here for you.</p>
+    </div>
+    <div class="items-center justify-center mt-16 bg-blue-100 px-8 py-4 rounded-lg motion-opacity-in-0 -motion-translate-y-in-50 motion-delay-500">
+      <p class="text-gray-700 text-2xl">
+      Mail us at <span class="text-blue font-semibold"><SupportEmail /></span>
+      </p>
+    </div>
+  </main>
+</Layout>
