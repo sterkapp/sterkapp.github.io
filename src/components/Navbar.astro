@@ -3,8 +3,8 @@ const currentUrl = new URL(Astro.request.url).pathname;
 
 const urls = [
   { path: '/', title: 'Home' },
-  { path: '/privacy-policy', title: 'Privacy Policy' },
-  { path: '/terms-of-service', title: 'Terms of Service' }
+  { path: '/privacy-policy/', title: 'Privacy Policy' },
+  { path: '/terms-of-service/', title: 'Terms of Service' }
 ];
 ---
 
@@ -15,8 +15,8 @@ const urls = [
         <a 
           href={path} 
           class={`block md:inline-block md:w-full hover:text-blue ${
-            currentUrl === path || currentUrl === `${path}/` 
-              ? 'font-bold text-blue' 
+            currentUrl === path 
+              ? 'font-bold text-blue text-[17px]' 
               : ''
           }`}
         >

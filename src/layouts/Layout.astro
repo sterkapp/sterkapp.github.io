@@ -1,5 +1,7 @@
 ---
-import Navbar from "../components/Navbar.astro";
+import { ClientRouter } from "astro:transitions";
+import Navbar from "../components/navbar.astro";
+import 'aos/dist/aos.css';
 ---
 
 <!doctype html>
@@ -9,12 +11,17 @@ import Navbar from "../components/Navbar.astro";
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Sterk App</title>
+		<title>Sterk</title>
+		<ClientRouter />
 	</head>
 	<body>
 		<Navbar />
 		<div class="mt-16" />
 		<slot />
+		<script>
+			import AOS from "aos";
+			AOS.init();
+		</script>
 	</body>
 </html>
 
