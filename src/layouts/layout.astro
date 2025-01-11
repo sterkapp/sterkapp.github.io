@@ -16,11 +16,14 @@ import 'aos/dist/aos.css';
 	</head>
 	<body>
 		<Navbar />
-		<div class="mt-16" />
 		<slot />
 		<script>
 			import AOS from "aos";
+			
 			AOS.init();
+			document.addEventListener("astro:page-load", () => {
+				AOS.init()
+			});
 		</script>
 	</body>
 </html>
