@@ -1,55 +1,63 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import Navbar from "../components/navbar.astro";
-import 'aos/dist/aos.css';
+import { ClientRouter } from "astro:transitions";
+
+import "aos/dist/aos.css";
+
+interface LayoutProps {
+  title?: string;
+}
+
+let { title } = Astro.props;
+title = title ? `${title} - Sterk` : "Sterk";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Sterk</title>
-		<ClientRouter />
-	</head>
-	<body>
-		<Navbar />
-		<slot />
-		<script>
-			import AOS from "aos";
-			
-			AOS.init();
-			document.addEventListener("astro:page-load", () => {
-				AOS.init()
-			});
-		</script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <script>
+      import AOS from "aos";
+
+      AOS.init();
+      document.addEventListener("astro:page-load", () => {
+        AOS.init();
+      });
+    </script>
+  </body>
 </html>
 
 <style is:global>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-	* {
-		font-family: 'SF Pro', sans-serif;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  * {
+    font-family: "SF Pro", sans-serif;
+  }
 
-	@font-face {
-		font-family: 'SF Pro';
-		src: url('/fonts/SF-Pro.ttf') format('truetype');
-		font-weight: normal;
-		font-style: normal;
-	}
+  @font-face {
+    font-family: "SF Pro";
+    src: url("/fonts/SF-Pro.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
 
-	@font-face {
-		font-family: 'SF Pro';
-		src: url('/fonts/SF-Pro-Bold.otf') format('opentype');
-		font-weight: bold;
-		font-style: normal;
-	}
+  @font-face {
+    font-family: "SF Pro";
+    src: url("/fonts/SF-Pro-Bold.otf") format("opentype");
+    font-weight: bold;
+    font-style: normal;
+  }
 </style>
