@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import ContentLayout from '../layouts/content-layout.astro';
 import Features from '../components/features.astro';
-import heroImage from '../assets/hero.png';
+import heroSvg  from '../assets/hero.svg';
 import Appstore from '../components/appstore.astro';
 import { fadeUp } from '../../animations';
 ---
@@ -15,7 +15,9 @@ import { fadeUp } from '../../animations';
 		</div>
 		<div class="flex flex-col items-center space-y-[32px] max-w-screen-lg">
 			<Appstore />
-			<Image class="overflow-hidden rounded-2xl" src={heroImage} alt="hero" loading={"eager"} {...fadeUp}/>
+			 <div class="bg-[#E9E9E9] overflow-hidden rounded-2xl py-4 h-[512px] hidden md:block">
+				  <Image class="overflow-hidden" src={heroSvg} alt="hero" loading={"eager"} {...fadeUp}/>
+			 </div>
 			<Features />
 			<Appstore />
 		</div>
