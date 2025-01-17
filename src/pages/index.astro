@@ -43,6 +43,9 @@ import Layout from '../layouts/layout.astro';
 
 		function initialize3DCanvas() {
 			const canvas = document.getElementById('canvas3d');
+			if(!canvas) 
+				throw new Error('Could not find canvas');
+			
 			const screenHeight = window.innerHeight;
 			const app = new Application(canvas);
 			app.load('https://prod.spline.design/ugzWXXGhlB9gMu30/scene.splinecode').then(() => {
@@ -76,10 +79,29 @@ import Layout from '../layouts/layout.astro';
 						start: 'top center',
 						end: 'center center',
 						scrub: 1, 
+						onUpdate: (self) => {
+								if (self.progress >= 0.5) {
+									app.setVariable('statistics-screen', 100);
+								} else if(self.progress < 0.2) {
+									app.setVariable('statistics-screen', 0);
+								}
+							}
 					}
 				})
 				.to(iphone.position, { x: 185 })
 				.to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
+				.to(iphone2.position, { x: -170 }, '<')
+				.to(iphone2.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
+				.to({}, {
+					scrollTrigger: {
+						trigger: "#part3",
+						start: 'top center',
+						end: 'center center',
+						scrub: 1,
+
+					}
+				})
+
 			});
 
 		}
