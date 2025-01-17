@@ -13,13 +13,45 @@ import { fadeUp } from '../../animations';
 		<div class="max-w-prose">
 			<p class="text-gray-700 text-2xl motion-opacity-in-0 -motion-translate-y-in-50 motion-delay-300">Workout tracking made easy.</p>
 		</div>
-		<div class="flex flex-col items-center space-y-[32px] max-w-screen-lg">
-			<Appstore />
-			 <div class="bg-[#E9E9E9] overflow-hidden rounded-2xl py-4 h-[512px] hidden md:block">
-				  <Image class="overflow-hidden" src={heroSvg} alt="hero" loading={"eager"} {...fadeUp}/>
-			 </div>
-			<Features />
-			<Appstore />
+		<Appstore />
+		<div class="h-screen max-w-screen-lg w-full motion-opacity-in-0 motion-translate-y-in-50 motion-delay-300">
+			<canvas id="canvas3d"/>
 		</div>
+		<Features />
+		<Appstore />
 	</main>
+	<script>
+		import { Application } from '@splinetool/runtime';
+		import gsap from 'gsap';
+		import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+		gsap.registerPlugin(ScrollTrigger);
+
+		function initialize3DCanvas() {
+			const canvas = document.getElementById('canvas3d');
+			const app = new Application(canvas);
+			app.load('https://prod.spline.design/ugzWXXGhlB9gMu30/scene.splinecode').then(() => {
+				const iphone = app.findObjectByName("Exercises");
+				const iphone2 = app.findObjectByName("Statistics");
+				if (!iphone || !iphone2) {
+					throw new Error('Could not find object');
+				}
+
+				gsap.timeline({
+					scrollTrigger: {
+						trigger: "#canvas3d",
+						start: 'top center',
+						end: 'center center',
+						scrub: 1, // Adjust scrub value to slow down the animation
+					}
+				})
+				.to(iphone.rotation, { y: 0 }, 0)
+				.to(iphone2.rotation, { y: .5, z: -0.1 }, 0)
+				.to(iphone.scale, { x: 1.2, y: 1.2, z: 1.2 }, 0)
+				.to(iphone2.scale, { x: 1.2, y: 1.2, z: 1.2 }, 0);
+			});
+		}
+
+		document.addEventListener("astro:page-load", initialize3DCanvas);
+	</script>
 </ContentLayout>
