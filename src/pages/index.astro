@@ -1,17 +1,13 @@
 ---
-import { Image } from 'astro:assets';
 import ContentLayout from '../layouts/content-layout.astro';
 import Features from '../components/features.astro';
-import heroSvg  from '../assets/hero.svg';
 import Appstore from '../components/appstore.astro';
-import { fadeUp } from '../../animations';
-import Layout from '../layouts/layout.astro';
 ---
 
 <ContentLayout>
-	<main class="items-center flex flex-col space-y-8">
-		<div class="fixed left-0 top-0 z-[-10] h-screen w-screen">
-			<canvas id="canvas3d" class="w-full h-full"/>
+	<main class="items-center flex flex-col">
+		<div class="fixed left-0 mt-16 z-[-10] h-screen w-screen">
+			<canvas id="canvas3d" class="w-full h-full" />
 		</div>
 		<div id="part1" class="h-screen w-full flex flex-col items-center">
 			<h1 class="text-blue font-bold text-9xl motion-opacity-in-0 -motion-translate-y-in-50">Sterk.</h1>
@@ -20,24 +16,13 @@ import Layout from '../layouts/layout.astro';
 			</div>
 			<Appstore />
 		</div>
-		<div id="part2" class="h-screen max-w-screen-lg flex justify-end">
-			<div class="w-1/2 justify-center items-center flex flex-col space-y-4">
-				<h2 class="text-[48px]/[48px] font-bold"  data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">Easily search for the exercise you need</h2>
-				<p class="text-gray-700 text-[32px]/8"  data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">Search for an exercise using either labels or a classic searchbar.</p>
-			</div>
-		</div>
-		<div id="part3" class="h-screen max-w-screen-lg flex justify-start p-16 rounded-lg">
-			<div class="w-1/2 justify-center items-center flex flex-col space-y-4">
-				<h2 class="text-[48px]/[48px] font-bold"  data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">View your exercise statistics</h2>
-				<p class="text-gray-700 text-[32px]/8"  data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">Analyze your reps, weight, and trends to maximize perfomance.</p>
-			</div>
-		</div>
+		<Features />
 		<Appstore />
 	</main>
 	<script>
 		import { Application } from '@splinetool/runtime';
-		import gsap from 'gsap';
 		import { ScrollTrigger } from 'gsap/ScrollTrigger';
+		import gsap from 'gsap';
 
 		gsap.registerPlugin(ScrollTrigger);
 
@@ -45,18 +30,17 @@ import Layout from '../layouts/layout.astro';
 			const canvas = document.getElementById('canvas3d');
 			if(!canvas) 
 				throw new Error('Could not find canvas');
-			
+
 			const screenHeight = window.innerHeight;
 			const app = new Application(canvas);
 			app.load('https://prod.spline.design/ugzWXXGhlB9gMu30/scene.splinecode').then(() => {
 				const iphone = app.findObjectByName("Exercises");
 				const iphone2 = app.findObjectByName("Statistics");
-				if (!iphone || !iphone2) {
+				if (!iphone || !iphone2) 
 					throw new Error('Could not find object');
-				}
 
-				gsap.set(iphone.position, { y: -200});
-				gsap.set(iphone2.position, { y: -200 });
+				gsap.set(iphone.position, { y: -(screenHeight / 6)});
+				gsap.set(iphone2.position, { y: -(screenHeight / 6) });
 
 				gsap.timeline({
 					scrollTrigger: {
@@ -68,7 +52,7 @@ import Layout from '../layouts/layout.astro';
 				})
 				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, .4)
 				.to(iphone2.rotation, { x: 0, y: 0, z: 0 }, '<')
-				.to(iphone.position, { y: 0, x: -185 }, '<')
+				.to(iphone.position, { y: 85, x: -185 }, '<')
 				.to(iphone2.position, { y: -screenHeight, x: 170 }, '<')
 				.to(iphone.scale, { x: 0.8, y: 0.8, z: 0.8 }, '<')
 				.to(iphone2.scale, { x: 0.8, y: 0.8, z: 0.8 }, '<')
@@ -90,18 +74,24 @@ import Layout from '../layouts/layout.astro';
 				})
 				.to(iphone.position, { x: 185 })
 				.to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
-				.to(iphone2.position, { x: -170 }, '<')
-				.to(iphone2.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
-				.to({}, {
+
+				gsap.timeline({
 					scrollTrigger: {
-						trigger: "#part3",
+						trigger: "#part4",
 						start: 'top center',
 						end: 'center center',
-						scrub: 1,
-
+						scrub: 1, 
+						onUpdate: (self) => {
+								if (self.progress >= 0.5) {
+									app.setVariable('edit-screen', 100);
+								} else if(self.progress < 0.2) {
+									app.setVariable('edit-screen', 0);
+								}
+							}
 					}
 				})
-
+				.to(iphone.position, { x: -185 })
+				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0)
 			});
 
 		}
