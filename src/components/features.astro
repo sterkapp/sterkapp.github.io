@@ -16,13 +16,12 @@ const largeFeatures = [
 ---
 
 {largeFeatures.map((feature, i) => (
-  <section id={`part${i + startPart}`} class={cn("h-screen max-w-screen-lg flex", {
+  <section id={`part${i + startPart}`} class={cn("sm:h-screen h-[60vh] max-w-screen-lg w-full flex", {
     "justify-end": i % 2 === 0,
-    "justify-start": i % 2 === 1,
   })}>
-    <div class="w-1/2 justify-center items-center flex flex-col space-y-4">
-      <h2 class="text-[48px]/[48px] font-bold" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.title}</h2>
-      <p class="text-gray-700 text-[32px]/8" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.description}</p>
+    <div class="w-1/2 justify-center flex flex-col space-y-4">
+      <h2 class="text-[2rem]/[2rem] sm:text-[3rem]/[3rem] md:text-[4rem]/[4rem] font-bold overflow-hidden" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.title}</h2>
+      <p class="text-gray-700 text-[1rem]/[1rem] sm:text-[1.5rem]/[1.5rem] md:text-[2rem]/[2rem]" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.description}</p>
     </div>
   </section>
 ))}

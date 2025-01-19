@@ -5,8 +5,8 @@ import Appstore from '../components/appstore.astro';
 ---
 
 <ContentLayout>
-	<main class="items-center flex flex-col">
-		<div class="fixed left-0 mt-16 z-[-10] h-screen w-screen">
+	<main class="items-center flex flex-col px-4">
+		<div class="fixed left-0 z-[-10] h-screen w-screen">
 			<canvas id="canvas3d" class="w-full h-full" />
 		</div>
 		<div id="part1" class="h-screen w-full flex flex-col items-center">
@@ -32,15 +32,17 @@ import Appstore from '../components/appstore.astro';
 				throw new Error('Could not find canvas');
 
 			const screenHeight = window.innerHeight;
+			// canvas.style.height = `${screenHeight}px`;
 			const app = new Application(canvas);
+			const iphoneDistance = window.innerWidth <= 768 ? 150 : 185;
 			app.load('https://prod.spline.design/ugzWXXGhlB9gMu30/scene.splinecode').then(() => {
 				const iphone = app.findObjectByName("Exercises");
 				const iphone2 = app.findObjectByName("Statistics");
 				if (!iphone || !iphone2) 
 					throw new Error('Could not find object');
 
-				gsap.set(iphone.position, { y: -(screenHeight / 6)});
-				gsap.set(iphone2.position, { y: -(screenHeight / 6) });
+				gsap.set(iphone.position, { y: -(screenHeight / 5)});
+				gsap.set(iphone2.position, { y: -(screenHeight / 5) });
 
 				gsap.timeline({
 					scrollTrigger: {
@@ -52,7 +54,7 @@ import Appstore from '../components/appstore.astro';
 				})
 				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, .4)
 				.to(iphone2.rotation, { x: 0, y: 0, z: 0 }, '<')
-				.to(iphone.position, { y: 85, x: -185 }, '<')
+				.to(iphone.position, { y: 55, x: -5 - iphoneDistance }, '<')
 				.to(iphone2.position, { y: -screenHeight, x: 170 }, '<')
 				.to(iphone.scale, { x: 0.8, y: 0.8, z: 0.8 }, '<')
 				.to(iphone2.scale, { x: 0.8, y: 0.8, z: 0.8 }, '<')
@@ -61,7 +63,7 @@ import Appstore from '../components/appstore.astro';
 					scrollTrigger: {
 						trigger: "#part3",
 						start: 'top center',
-						end: 'center center',
+						end: `+=${screenHeight/8}`,
 						scrub: 1, 
 						onUpdate: (self) => {
 								if (self.progress >= 0.5) {
@@ -72,14 +74,14 @@ import Appstore from '../components/appstore.astro';
 							}
 					}
 				})
-				.to(iphone.position, { x: 185 })
+				.to(iphone.position, { x: -5 + iphoneDistance })
 				.to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
 
 				gsap.timeline({
 					scrollTrigger: {
 						trigger: "#part4",
 						start: 'top center',
-						end: 'center center',
+						end: `+=${screenHeight/8}`,
 						scrub: 1, 
 						onUpdate: (self) => {
 								if (self.progress >= 0.5) {
@@ -90,7 +92,7 @@ import Appstore from '../components/appstore.astro';
 							}
 					}
 				})
-				.to(iphone.position, { x: -185 })
+				.to(iphone.position, { x: -5 - iphoneDistance })
 				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0)
 			});
 
