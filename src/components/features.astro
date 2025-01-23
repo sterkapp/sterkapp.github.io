@@ -1,5 +1,5 @@
 ---
-import { ClassValue, clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export const cn = (...inputs: ClassValue[]) => {
@@ -11,17 +11,20 @@ const startPart = 2;
 const largeFeatures = [
   {title: "Easily search for the exercise you need", description: "Search for an exercise using either labels or a classic searchbar." },
   {title: "View your exercise statistics", description: "Analyze your reps, weight, and trends to maximize perfomance." },
+  {title: "Add sets faster with set prediction", description: "Your next set is estimated based on past data, making tracking easier than ever." },
   {title: "Customize your exercises effortlessly", description: "Edit details like labels, weight settings and more to make logging a set easier." },
+  {title: "Keep track of every workout session ", description: "View your complete history of sets and reps, all in one place." },
 ]
 ---
-
-{largeFeatures.map((feature, i) => (
-  <section id={`part${i + startPart}`} class={cn("sm:h-screen h-[60vh] max-w-screen-lg w-full flex", {
-    "justify-end": i % 2 === 0,
-  })}>
-    <div class="w-1/2 justify-center flex flex-col space-y-4">
-      <h2 class="text-[2rem]/[2rem] sm:text-[3rem]/[3rem] md:text-[4rem]/[4rem] font-bold overflow-hidden" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.title}</h2>
-      <p class="text-gray-700 text-[1rem]/[1rem] sm:text-[1.5rem]/[1.5rem] md:text-[2rem]/[2rem]" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.description}</p>
-    </div>
-  </section>
-))}
+<div>
+  {largeFeatures.map((feature, i) => (
+    <section id={`part${i + startPart}`} class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
+      "justify-end": i % 2 === 0,
+    })}>
+      <div class="w-1/2 justify-center flex flex-col space-y-4">
+        <h2 class="text-[2rem]/[2rem] sm:text-[3rem]/[3rem] md:text-[4rem]/[4rem] font-bold overflow-hidden" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.title}</h2>
+        <p class="text-gray-700 text-[1rem]/[1rem] sm:text-[1.5rem]/[1.5rem] md:text-[2rem]/[2rem]" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.description}</p>
+      </div>
+    </section>
+  ))}
+</div>
