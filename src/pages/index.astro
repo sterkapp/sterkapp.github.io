@@ -1,154 +1,166 @@
 ---
-import ContentLayout from '../layouts/content-layout.astro';
-import Features from '../components/features.astro';
-import Appstore from '../components/appstore.astro';
+import ContentLayout from "../layouts/content-layout.astro";
+import Features from "../components/features.astro";
+import Appstore from "../components/appstore.astro";
 ---
 
 <ContentLayout>
-	<main class="relative flex flex-col items-center px-4 pb-8">
-		<!-- Canvas Container (Sticky with Clipping) -->
-		<div class="sticky top-0 w-full z-0 overflow-hidden h-[110vh] -mt-16">
-			<canvas id="canvas3d" class="w-full h-[100vh] clip-canvas"></canvas>
-		</div>
-	
-		<!-- Content Section -->
-		<div class="relative z-10 -mt-[104vh]">
-			<div id="part1" class="relative w-full h-screen flex flex-col items-center">
-				<h1 class="text-blue font-bold text-9xl motion-opacity-in-0 -motion-translate-y-in-50">
-					Sterk.
-				</h1>
-				<div class="max-w-prose">
-					<p class="text-gray-700 text-2xl motion-opacity-in-0 -motion-translate-y-in-50 motion-delay-300">
-						Workout tracking made easy.
-					</p>
-				</div>
-				<Appstore />
-			</div>
-			<Features />
-		</div>
-		<Appstore />
-	</main>
-	
-	<style>
-		.clip-canvas {
-			clip-path: inset(0 0 '10vh' 0); 
-		}
-	</style>
-	
-	<script>
-		import { Application } from '@splinetool/runtime';
-		import { ScrollTrigger } from 'gsap/ScrollTrigger';
-		import gsap from 'gsap';
+  <main class="relative flex flex-col items-center px-4 pb-8">
+    <!-- Canvas Container (Sticky with Clipping) -->
+    <div class="sticky top-0 w-full z-0 overflow-hidden h-[110vh] -mt-16">
+      <canvas id="canvas3d" class="w-full h-[100vh] clip-canvas"></canvas>
+    </div>
 
-		gsap.registerPlugin(ScrollTrigger);
+    <!-- Content Section -->
+    <div class="relative z-10 -mt-[98vh]">
+      <div
+        id="part1"
+        class="relative w-full h-screen flex flex-col items-center"
+      >
+        <h1
+          class="text-blue font-bold text-9xl motion-opacity-in-0 -motion-translate-y-in-50"
+        >
+          Sterk.
+        </h1>
+        <div class="max-w-prose">
+          <p
+            class="text-gray-700 text-2xl motion-opacity-in-0 -motion-translate-y-in-50 motion-delay-300"
+          >
+            Workout tracking made easy.
+          </p>
+        </div>
+        <Appstore />
+      </div>
+      <Features />
+    </div>
+    <Appstore />
+  </main>
 
-		function initialize3DCanvas() {
-			const canvas = document.getElementById('canvas3d');
-			if(!canvas) 
-				throw new Error('Could not find canvas');
+  <style>
+    .clip-canvas {
+      clip-path: inset(0 0 "10vh" 0);
+    }
+  </style>
 
-			const screenHeight = window.innerHeight;
-			// canvas.style.height = `${screenHeight}px`;
-			const app = new Application(canvas);
-			const iphoneDistance = window.innerWidth <= 768 ? 150 : 185;
-			app.load('https://prod.spline.design/ugzWXXGhlB9gMu30/scene.splinecode').then(() => {
-				const iphone = app.findObjectByName("Exercises");
-				const iphone2 = app.findObjectByName("Statistics");
-				if (!iphone || !iphone2) 
-					throw new Error('Could not find object');
+  <script>
+    import { Application } from "@splinetool/runtime";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import gsap from "gsap";
 
-				gsap.set(iphone.position, { y: -(screenHeight / 5)});
-				gsap.set(iphone2.position, { y: -(screenHeight / 5) });
+    gsap.registerPlugin(ScrollTrigger);
 
-				gsap.timeline({
-					scrollTrigger: {
-						trigger: "#part1",
-						start: 'top center',
-						end: 'bottom center',
-						scrub: 1,
-					}
-				})
-				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, .4)
-				.to(iphone2.rotation, { x: 0, y: 0, z: 0 }, '<')
-				.to(iphone.position, { y: 55, x: -5 - iphoneDistance }, '<')
-				.to(iphone2.position, { y: -screenHeight, x: 170 }, '<')
-				.to(iphone.scale, { x: 0.8, y: 0.8, z: 0.8 }, '<')
-				.to(iphone2.scale, { x: 0.8, y: 0.8, z: 0.8 }, '<')
+    function initialize3DCanvas() {
+      const canvas = document.getElementById("canvas3d");
+      if (!canvas) throw new Error("Could not find canvas");
 
-				gsap.timeline({
-					scrollTrigger: {
-						trigger: "#part3",
-						start: 'top center',
-						end: `+=${screenHeight/8}`,
-						scrub: 1, 
-						onUpdate: (self) => {
-								if (self.progress >= 0.5) {
-									app.setVariable('statistics-screen', 100);
-								} else if(self.progress < 0.2) {
-									app.setVariable('statistics-screen', 0);
-								}
-							}
-					}
-				})
-				.to(iphone.position, { x: -5 + iphoneDistance })
-				.to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
+      const screenHeight = window.innerHeight;
+      // canvas.style.height = `${screenHeight}px`;
+      const app = new Application(canvas);
+      const iphoneDistance = window.innerWidth <= 768 ? 150 : 185;
+      app
+        .load("https://prod.spline.design/ugzWXXGhlB9gMu30/scene.splinecode")
+        .then(() => {
+          const iphone = app.findObjectByName("Exercises");
+          const iphone2 = app.findObjectByName("Statistics");
+          if (!iphone || !iphone2) throw new Error("Could not find object");
 
-				gsap.timeline({
-					scrollTrigger: {
-						trigger: "#part4",
-						start: 'top center',
-						end: `+=${screenHeight/8}`,
-						scrub: 1, 
-						onUpdate: (self) => {
-								if (self.progress >= 0.5) {
-									app.setVariable('set-screen', 100);
-								} else if(self.progress < 0.2) {
-									app.setVariable('set-screen', 0);
-								}
-							}
-					}
-				})
-				.to(iphone.position, { x: -5 - iphoneDistance })
-				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0)
+          gsap.set(iphone.position, { y: -(screenHeight / 5) });
+          gsap.set(iphone2.position, { y: -(screenHeight / 5) });
 
-				gsap.timeline({
-					scrollTrigger: {
-						trigger: "#part5",
-						start: 'top center',
-						end: `+=${screenHeight/8}`,
-						scrub: 1, 
-						onUpdate: (self) => {
-								if (self.progress >= 0.5) {
-									app.setVariable('edit-screen', 100);
-								} else if(self.progress < 0.2) {
-									app.setVariable('edit-screen', 0);
-								}
-							}
-					}
-				})
-				.to(iphone.position, { x: -5 + iphoneDistance })
-				.to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0)
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "#part1",
+                start: "top center",
+                end: "bottom center",
+                scrub: 1,
+              },
+            })
+            .to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0.4)
+            .to(iphone2.rotation, { x: 0, y: 0, z: 0 }, "<")
+            .to(iphone.position, { y: 55, x: -5 - iphoneDistance }, "<")
+            .to(iphone2.position, { y: -screenHeight, x: 170 }, "<")
+            .to(iphone.scale, { x: 0.8, y: 0.8, z: 0.8 }, "<")
+            .to(iphone2.scale, { x: 0.8, y: 0.8, z: 0.8 }, "<");
 
-				gsap.timeline({
-					scrollTrigger: {
-						trigger: "#part6",
-						start: 'top center',
-						end: `+=${screenHeight/8}`,
-						scrub: 1, 
-						onUpdate: (self) => {
-								if (self.progress >= 0.5) {
-									app.setVariable('workout-screen', 100);
-								} else if(self.progress < 0.2) {
-									app.setVariable('workout-screen', 0);
-								}
-							}
-					}
-				})
-				.to(iphone.position, { x: -5 - iphoneDistance })
-				.to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0)
-			});
-		}
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "#part3",
+                start: "top center",
+                end: `+=${screenHeight / 8}`,
+                scrub: 1,
+                onUpdate: (self) => {
+                  if (self.progress >= 0.5) {
+                    app.setVariable("statistics-screen", 100);
+                  } else if (self.progress < 0.2) {
+                    app.setVariable("statistics-screen", 0);
+                  }
+                },
+              },
+            })
+            .to(iphone.position, { x: -5 + iphoneDistance })
+            .to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0);
 
-		document.addEventListener("astro:page-load", initialize3DCanvas);
-	</script>
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "#part4",
+                start: "top center",
+                end: `+=${screenHeight / 8}`,
+                scrub: 1,
+                onUpdate: (self) => {
+                  if (self.progress >= 0.5) {
+                    app.setVariable("set-screen", 100);
+                  } else if (self.progress < 0.2) {
+                    app.setVariable("set-screen", 0);
+                  }
+                },
+              },
+            })
+            .to(iphone.position, { x: -5 - iphoneDistance })
+            .to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0);
+
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "#part5",
+                start: "top center",
+                end: `+=${screenHeight / 8}`,
+                scrub: 1,
+                onUpdate: (self) => {
+                  if (self.progress >= 0.5) {
+                    app.setVariable("edit-screen", 100);
+                  } else if (self.progress < 0.2) {
+                    app.setVariable("edit-screen", 0);
+                  }
+                },
+              },
+            })
+            .to(iphone.position, { x: -5 + iphoneDistance })
+            .to(iphone.rotation, { x: 0, y: 2 * Math.PI, z: 0 }, 0);
+
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: "#part6",
+                start: "top center",
+                end: `+=${screenHeight / 8}`,
+                scrub: 1,
+                onUpdate: (self) => {
+                  if (self.progress >= 0.5) {
+                    app.setVariable("workout-screen", 100);
+                  } else if (self.progress < 0.2) {
+                    app.setVariable("workout-screen", 0);
+                  }
+                },
+              },
+            })
+            .to(iphone.position, { x: -5 - iphoneDistance })
+            .to(iphone.rotation, { x: 0, y: 0, z: 0 }, 0);
+        });
+    }
+
+    document.addEventListener("astro:page-load", initialize3DCanvas);
+  </script>
 </ContentLayout>
