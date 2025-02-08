@@ -8,23 +8,173 @@ export const cn = (...inputs: ClassValue[]) => {
 
 const startPart = 2;
 
-const largeFeatures = [
-  {title: "Easily search for the exercise you need", description: "Search for an exercise using either labels or a classic searchbar." },
-  {title: "View your exercise statistics", description: "Analyze your reps, weight, and trends to maximize perfomance." },
-  {title: "Add sets faster with set prediction", description: "Your next set is estimated based on past data, making tracking easier than ever." },
-  {title: "Customize your exercises effortlessly", description: "Edit details like labels, weight settings and more to make logging a set easier." },
-  {title: "Keep track of every workout session ", description: "View your complete history of sets and reps, all in one place." },
-]
+const features = [
+  {
+    title: "Find exercises faster than ever before.",
+    highlighted: ["faster"],
+    description:
+      "Search for an exercise using either labels or a classic searchbar.",
+  },
+  {
+    title: "Become stronger with detailed insights.",
+    highlighted: ["stronger"],
+    description:
+      "Analyze your reps, weight, and trends to maximize perfomance.",
+  },
+  {
+    title: "Easily add sets so you can focus fully on your workout.",
+    highlighted: ["Easily", "focus fully"],
+    description:
+      "Your next set is estimated based on past data, making tracking easier than ever.",
+  },
+  {
+    title: "Customize exercises for effortless logging.",
+    highlighted: ["effortless"],
+    description:
+      "Edit details like labels, weight settings and more to make logging a set easier.",
+  },
+  {
+    title: "Stay motivated by seeing how far you’ve grown.",
+    highlighted: ["Stay motivated"],
+    description:
+      "View your complete history of sets and reps, all in one place.",
+  },
+];
 ---
+
 <div>
-  {largeFeatures.map((feature, i) => (
-    <section id={`part${i + startPart}`} class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
-      "justify-end": i % 2 === 0,
-    })}>
-      <div class="w-1/2 justify-center flex flex-col space-y-4">
-        <h2 class="text-[2rem]/[2rem] sm:text-[3rem]/[3rem] md:text-[4rem]/[4rem] font-bold overflow-hidden" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.title}</h2>
-        <p class="text-gray-700 text-[1rem]/[1rem] sm:text-[1.5rem]/[1.5rem] md:text-[2rem]/[2rem]" data-aos="fade-up" data-aos-easing="ease-out-cubic" data-aos-delay="200">{feature.description}</p>
-      </div>
-    </section>
-  ))}
+  <section
+    id={`part2`}
+    class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
+      "justify-end": 0 % 2 === 0,
+    })}
+  >
+    <div class="w-1/2 justify-center flex flex-col space-y-4">
+      <h2
+        class="text-[2rem]/[2.4rem] sm:text-[3rem]/[3.4rem] md:text-[4rem]/[4.4rem] font-bold"
+        data-aos="fade-up"
+        data-aos-easing="ease-out-cubic"
+        data-aos-delay="200"
+      >
+        {
+          features[0].title.split(" ").map((word) => (
+            <span
+              class={cn({
+                "bg-clip-text text-transparent bg-gradient-to-r from-[#66AFFF] to-blue":
+                  features[0].highlighted.includes(word),
+              })}
+            >
+              {word}
+            </span>
+          ))
+        }
+      </h2>
+    </div>
+  </section>
+  <section
+    id={`part3`}
+    class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
+      "justify-end": 1 % 2 === 0,
+    })}
+  >
+    <div class="w-1/2 justify-center flex flex-col space-y-4">
+      <h2
+        class="text-[2rem]/[2.4rem] sm:text-[3rem]/[3.4rem] md:text-[4rem]/[4.4rem] font-bold"
+        data-aos="fade-up"
+        data-aos-easing="ease-out-cubic"
+        data-aos-delay="200"
+      >
+        {
+          features[1].title.split(" ").map((word) => (
+            <span
+              class={cn({
+                "bg-clip-text text-transparent bg-gradient-to-r from-[#66AFFF] to-blue":
+                  features[1].highlighted.includes(word),
+              })}
+            >
+              {word}
+            </span>
+          ))
+        }
+      </h2>
+    </div>
+  </section>
+  <section
+    id={`part4`}
+    class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
+      "justify-end": 2 % 2 === 0,
+    })}
+  >
+    <div class="w-1/2 justify-center flex flex-col space-y-4">
+      <h2
+        class="text-[2rem]/[2.4rem] sm:text-[3rem]/[3.4rem] md:text-[4rem]/[4.4rem] font-bold"
+        data-aos="fade-up"
+        data-aos-easing="ease-out-cubic"
+        data-aos-delay="200"
+      >
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-[#66AFFF] to-blue"
+        >
+          Easily
+        </span>{" "}
+        add sets so you can
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-[#66AFFF] to-blue"
+        >
+          focus fully
+        </span>{" "}
+        on your workout.
+      </h2>
+    </div>
+  </section>
+  <section
+    id={`part5`}
+    class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
+      "justify-end": 3 % 2 === 0,
+    })}
+  >
+    <div class="w-1/2 justify-center flex flex-col space-y-4">
+      <h2
+        class="text-[2rem]/[2.4rem] sm:text-[3rem]/[3.4rem] md:text-[4rem]/[4.4rem] font-bold"
+        data-aos="fade-up"
+        data-aos-easing="ease-out-cubic"
+        data-aos-delay="200"
+      >
+        {
+          features[3].title.split(" ").map((word) => (
+            <span
+              class={cn({
+                "bg-clip-text text-transparent bg-gradient-to-r from-[#66AFFF] to-blue":
+                  features[3].highlighted.includes(word),
+              })}
+            >
+              {word}
+            </span>
+          ))
+        }
+      </h2>
+    </div>
+  </section>
+  <section
+    id={`part6`}
+    class={cn("sm:h-screen h-[80vh] max-w-screen-lg w-full flex", {
+      "justify-end": 4 % 2 === 0,
+    })}
+  >
+    <div class="w-1/2 justify-center flex flex-col space-y-4">
+      <h2
+        class="text-[2rem]/[2.4rem] sm:text-[3rem]/[3.4rem] md:text-[4rem]/[4.4rem] font-bold"
+        data-aos="fade-up"
+        data-aos-easing="ease-out-cubic"
+        data-aos-delay="200"
+      >
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-[#66AFFF] to-blue"
+        >
+          Stay motivated
+        </span>
+        by seeing how far you’ve grown.
+      </h2>
+    </div>
+  </section>
 </div>
