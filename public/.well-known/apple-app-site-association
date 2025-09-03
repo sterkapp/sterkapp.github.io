@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "377F8338H3.com.thomasrooskens.sterk",
+        "paths": [
+          "/app/*"
+        ]
+      }
+    ]
+  }
+}
